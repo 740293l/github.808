@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>海绵宝宝 | 个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(180deg, #40c4ff 0%, #0288d1 100%);
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        /* 海底气泡动画 */
+        .bubble {
+            position: fixed;
+            bottom: -100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            animation: rise linear infinite;
+            z-index: 0;
+        }
+        @keyframes rise {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 0.8; }
+            100% {
+                transform: translateY(-100vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 头部横幅 */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .sponge-title {
+            font-size: 48px;
+            color: #fff600;
+            text-shadow: 4px 4px 0 #ff9800, 6px 6px 0 #f57f17;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+        .sub-title {
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* 人物卡片 */
+        .about-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+        .avatar-box {
+            width: 260px;
+            height: 260px;
+            background: #fff600;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 6px solid #ff9800;
+            flex-shrink: 0;
+        }
+        .avatar-box img {
+            width: 220px;
+        }
+        .info h2 {
+            font-size: 32px;
+            color: #ffb300;
+            margin-bottom: 15px;
+        }
+        .info p {
+            font-size: 17px;
+            line-height: 1.8;
+            margin: 8px 0;
+        }
+        .tag {
+            display: inline-block;
+            background: #40c4ff;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 30px;
+            margin: 5px 4px;
+            font-weight: bold;
+        }
+
+        /* 好友板块 */
+        .friend-section {
+            margin: 50px 0;
+        }
+        .section-head {
+            text-align: center;
+            font-size: 34px;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px #01579b;
+        }
+        .friend-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        .friend-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s transform;
+        }
+        .friend-card:hover {
+            transform: translateY(-10px);
+        }
+        .friend-card h3 {
+            margin: 12px 0;
+            color: #0288d1;
+        }
+        /* 好友头像样式 */
+        .friend-card .char-img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+
+        /* 语录板块 */
+        .quote-box {
+            background: #fff600;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 50px 0;
+        }
+        .quote-text {
+            font-size: 24px;
+            font-style: italic;
+            color: #333;
+            line-height: 1.9;
+        }
+
+        /* 底部 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            font-size: 16px;
+        }
+
+        /* 移动端适配 */
+        @media(max-width:768px){
+            .about-card {
+                justify-content: center;
+                text-align: center;
+            }
+            .sponge-title {
+                font-size: 32px;
+            }
+            .avatar-box {
+                width: 200px;
+                height: 200px;
+            }
+            .avatar-box img {
+                width: 160px;
+            }
+            .friend-card .char-img {
+                width: 130px;
+                height: 130px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 气泡容器 -->
+    <div id="bubbleWrap"></div>
+
+    <div class="container">
+        <header>
+            <h1 class="sponge-title">海绵宝宝</h1>
+            <p class="sub-title">比奇堡开心小方块 · 蟹堡王金牌厨师</p>
+        </header>
+
+        <!-- 个人介绍 -->
+        <div class="about-card">
+            <div class="avatar-box">
+                <img src="./img/baby1.jpeg" alt="海绵宝宝">
+            </div>
+            <div class="info">
+                <h2>哈喽！我是海绵宝宝·方裤块</h2>
+                <p>📍 居住地：太平洋海底 · 比奇堡 菠萝屋</p>
+                <p>🍔 工作：蟹堡王餐厅厨师，全世界最会做蟹黄堡的人</p>
+                <p>🐿️ 最好朋友：派大星、珊迪</p>
+                <p>🎯 爱好：吹泡泡、抓水母、练空手道、挖蛤蜊、吹竖笛</p>
+                <div>
+                    <span class="tag">乐观开朗</span>
+                    <span class="tag">勤劳能干</span>
+                    <span class="tag">永远开心</span>
+                    <span class="tag">热爱生活</span>
+                </div>
+                <p style="margin-top:12px;">无论遇到什么烦恼，都要像我一样永远充满活力！</p>
+            </div>
+        </div>
+
+        <!-- 好朋友板块（图片放在名字下方） -->
+        <section class="friend-section">
+            <h2 class="section-head">我的比奇堡好朋友</h2>
+            <div class="friend-wrap">
+                <!-- 派大星 -->
+                <div class="friend-card">
+                    <h3>派大星</h3>
+                    <p>我最好的海星兄弟</p>
+                    <img class="char-img" src="./img/baby2.jpeg" alt="派大星">
+                </div>
+                <!-- 珊迪 -->
+                <div class="friend-card">
+                    <h3>珊迪</h3>
+                    <p>德克萨斯松鼠，空手道搭子</p>
+                    <img class="char-img" src="./img/baby3.jpeg" alt="珊迪">
+                </div>
+                <!-- 章鱼哥 -->
+                <div class="friend-card">
+                    <h3>章鱼哥</h3>
+                    <p>爱吹竖笛的邻居（嘴上嫌弃我）</p>
+                    <img class="char-img" src="./img/baby4.jpeg" alt="章鱼哥">
+                </div>
+                <!-- 蟹老板 -->
+                <div class="friend-card">
+                    <h3>蟹老板</h3>
+                    <p>我的老板，超爱钱</p>
+                    <img class="char-img" src="./img/baby5.jpeg" alt="蟹老板">
+                </div>
+            </div>
+        </section>
+
+        <!-- 经典语录 -->
+        <div class="quote-box">
+            <p class="quote-text">
+                “知识不能替代友谊，就算失去一切，我也要留住派大星！”
+            </p>
+        </div>
+
+        <footer>
+            <p>© 2026 海绵宝宝个人官网 | 比奇堡菠萝屋出品</p>
+        </footer>
+    </div>
+
+    <script>
+        // 生成上浮气泡
+        const bubbleWrap = document.getElementById('bubbleWrap');
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            // 随机大小、位置、速度
+            const size = Math.random() * 40 + 10;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            bubble.style.left = Math.random() * 100 + '%';
+            const duration = Math.random() * 8 + 6;
+            bubble.style.animationDuration = duration + 's';
+            bubbleWrap.appendChild(bubble);
+            // 气泡走完删除
+            setTimeout(() => {
+                bubble.remove();
+            }, duration * 1000);
+        }
+        // 持续生成气泡
+        setInterval(createBubble, 400);
+
+        // 自动切换语录
+        const quotes = [
+            "知识不能替代友谊，就算失去一切，我也要留住派大星！",
+            "今天也要开心地去抓水母！",
+            "蟹黄堡是全世界最美味的食物！",
+            "准备好迎接今天的快乐了吗？",
+            "难过的时候就吹个大大的泡泡吧！"
+        ];
+        let quoteIndex = 0;
+        const quoteDom = document.querySelector('.quote-text');
+        setInterval(() => {
+            quoteIndex = (quoteIndex + 1) % quotes.length;
+            quoteDom.textContent = `"${quotes[quoteIndex]}"`;
+        }, 5000);
+    </script>
+</body>
+</html>
